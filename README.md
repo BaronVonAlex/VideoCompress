@@ -30,7 +30,7 @@ Right-click `launch.vbs` → **Create shortcut** → move it to your Desktop. Ri
 
 ### Stopping the app / uninstalling
 
-The app runs a background process (`VideoCompress.exe`) that holds port 3847. You must kill it before you can delete the folder.
+The app runs a background process (`bun.exe`) that holds port 3847. You must kill it before you can delete the folder.
 
 **Option 1 — Terminal:**
 ```bash
