@@ -28,6 +28,20 @@ Every run after that is instant — just double-click `launch.vbs`.
 
 Right-click `launch.vbs` → **Create shortcut** → move it to your Desktop. Right-click the shortcut → **Properties** → **Change Icon** to give it a proper icon.
 
+### Stopping the app / uninstalling
+
+The app runs a background process (`VideoCompress.exe`) that holds port 3847. You must kill it before you can delete the folder.
+
+**Option 1 — Terminal:**
+```bash
+taskkill /F /IM bun.exe
+```
+
+**Option 2 — Task Manager:**
+`Ctrl + Shift + Esc` → **Details** tab → find `bun.exe` → right-click → **End Task**
+
+After that you can safely delete the folder.
+
 ---
 
 ## Development
