@@ -52,3 +52,16 @@ export function updateJob(jobId: string, patch: Partial<JobState>): void {
 export function deleteJob(jobId: string): void {
   jobs.delete(jobId);
 }
+
+// Returns file paths of jobs older than maxAgeMs so the caller can delete them
+export function collectStaleJobs(maxAgeMs = 60 * 60 * 1000): string[] {
+  const cutoff = Date.now() - maxAgeMs;
+  const paths: string[] = [];
+  for (const [id, job] of jobs) {
+    if (job.createdAt < cutoff) {
+      paths.push(job.inputPath, job.outputPath);
+      jobs.delete(id);
+    }
+  }
+  return paths;
+}

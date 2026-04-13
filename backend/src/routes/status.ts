@@ -1,8 +1,8 @@
 import { Hono } from 'hono';
 import { createReadStream } from 'node:fs';
 import { stat } from 'node:fs/promises';
-import { getJob } from '../services/jobs.ts';
-import { scheduleCleanup } from '../utils/cleanup.ts';
+import { getJob, deleteJob } from '../services/jobs.ts';
+import { deleteFile, scheduleCleanup } from '../utils/cleanup.ts';
 
 export const statusRouter = new Hono();
 
@@ -25,6 +25,17 @@ statusRouter.get('/:jobId', (c) => {
     errorMessage: job.errorMessage,
     downloadUrl: job.status === 'done' ? `/api/status/download/${jobId}` : null,
   });
+});
+
+// Called by frontend on reset, error dismissal, or starting a new job — cleans up immediately
+statusRouter.delete('/:jobId', async (c) => {
+  const { jobId } = c.req.param();
+  const job = getJob(jobId);
+  if (!job) return c.json({ ok: true }); // already gone
+
+  await Promise.all([deleteFile(job.inputPath), deleteFile(job.outputPath)]);
+  deleteJob(jobId);
+  return c.json({ ok: true });
 });
 
 statusRouter.get('/download/:jobId', async (c) => {

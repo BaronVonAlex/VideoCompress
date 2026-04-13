@@ -41,6 +41,7 @@ export default function App() {
 
   const handleCompress = async () => {
     if (!file) return;
+    if (jobId) discardJob(jobId);
     setSubmitError('');
     setPhase('compressing');
     setJobId(null);
@@ -65,7 +66,12 @@ export default function App() {
     }
   };
 
+  const discardJob = (id: string) => {
+    fetch(`/api/status/${id}`, { method: 'DELETE' }).catch(() => {});
+  };
+
   const handleReset = () => {
+    if (jobId) discardJob(jobId);
     setFile(null);
     setJobId(null);
     setPhase('idle');

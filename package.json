@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "bun run --bun concurrently \"cd backend && bun run dev\" \"cd frontend && bun run dev\"",
-    "install:all": "cd backend && bun install && cd ../frontend && bun install"
+    "install:all": "cd backend && bun install && cd ../frontend && bun install",
+    "build": "build.bat"
   },
   "devDependencies": {
     "concurrently": "^8.2.0"

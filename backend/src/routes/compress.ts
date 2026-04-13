@@ -1,13 +1,14 @@
 import { Hono } from 'hono';
 import { v4 as uuidv4 } from 'uuid';
 import { join } from 'node:path';
-import { writeFile, stat } from 'node:fs/promises';
+import { writeFile, stat, mkdir } from 'node:fs/promises';
 import { detectEncoder } from '../services/gpu.ts';
 import { getVideoDuration, runEncode } from '../services/ffmpeg.ts';
 import { calculateBitrate } from '../utils/bitrate.ts';
 import { createJob, updateJob } from '../services/jobs.ts';
 
-const TEMP_DIR = join(import.meta.dir, '../../temp');
+const TEMP_DIR = join(process.cwd(), 'temp');
+await mkdir(TEMP_DIR, { recursive: true });
 
 export const compressRouter = new Hono();
 
