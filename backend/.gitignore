@@ -1,0 +1,13 @@
+# Dependencies
+node_modules/
+
+# Temp files (uploaded inputs + compressed outputs)
+temp/
+
+# FFmpeg 2-pass log files
+*.log
+*.log.mbtree
+ffmpeg2pass*
+
+# Build output
+dist/
