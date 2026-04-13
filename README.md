@@ -38,7 +38,7 @@ taskkill /F /IM bun.exe
 ```
 
 **Option 2 — Task Manager:**
-`Ctrl + Shift + Esc` → **Details** tab → find `bun.exe` → right-click → **End Task**
+`Ctrl + Shift + Esc` → **Processes** tab → find `bun.exe` → right-click → **End Task**
 
 After that you can safely delete the folder.
 
